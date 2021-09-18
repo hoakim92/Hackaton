@@ -6,6 +6,7 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 
 
 import static org.junit.Assert.assertEquals;
@@ -51,6 +52,12 @@ public class StepDefs {
     public void validate_title(String xpath, String text) {
         waitForStep();
         driver.findElement(By.xpath(xpath)).sendKeys(text);
+    }
+
+    @Given("^Set select '(.*)' text '(.*)'$")
+    public void set_select_value(String xpath, String text) {
+        waitForStep();
+        new Select(driver.findElement(By.xpath(xpath))).selectByVisibleText(text);
     }
 
     static public void waitForStep() {
