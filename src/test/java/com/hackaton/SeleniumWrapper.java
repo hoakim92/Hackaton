@@ -17,7 +17,6 @@ public class SeleniumWrapper {
         }
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--ignore-certificate-errors");
-//        options.setBinary("./chrome-win/chrome.exe");
         WebDriver driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
