@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class SeleniumWrapper {
     public static WebDriver getDriver() {
         try {
-            System.setProperty("webdriver.chrome.driver", new File("./driver/chromedriver.exe").getCanonicalPath());
+            System.setProperty("webdriver.chrome.driver", new File("./driver/linux-chromedriver.exe").getCanonicalPath());
         } catch (IOException e) {
             e.printStackTrace();
         }
