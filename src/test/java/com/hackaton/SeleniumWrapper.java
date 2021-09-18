@@ -17,6 +17,10 @@ public class SeleniumWrapper {
         }
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--ignore-certificate-errors");
+        options.addArguments("--headless");
+        options.addArguments("--window-size=1920,1080");
+        options.addArguments("--ignore-certificate-error");
+        options.addArguments("--allow-running-insecure-content");
         WebDriver driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
