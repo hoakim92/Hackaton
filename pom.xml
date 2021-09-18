@@ -57,7 +57,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>App</mainClass>
+                            <mainClass>com.hackaton.stepDefs.App</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
