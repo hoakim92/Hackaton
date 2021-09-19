@@ -23,7 +23,6 @@ public class SeleniumWrapper {
         for (String s : Arrays.asList(config.getProperty("selenium.arguments").split("--"))){
             if (!s.isEmpty()) {
                 options.addArguments("--" + s);
-                System.out.println("--" + s);
             }
         }
         WebDriver driver = new ChromeDriver(options);
