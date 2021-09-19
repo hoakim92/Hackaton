@@ -6,23 +6,29 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class SeleniumWrapper {
-    public static WebDriver getDriver() {
-        try {
-            System.setProperty("webdriver.chrome.driver", new File("./driver/linux-chromedriver").getCanonicalPath());
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static WebDriver getDriver(Properties config) {
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("windows")) {
+            System.setProperty("webdriver.chrome.driver", "driver/chromedriver.exe");
+        } else if (os.contains("linux")) {
+            System.setProperty("webdriver.chrome.driver", "driver/linux-chromedriver");
         }
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--ignore-certificate-errors");
-        options.addArguments("--headless");
-        options.addArguments("--window-size=1920,1080");
-        options.addArguments("--ignore-certificate-error");
-        options.addArguments("--allow-running-insecure-content");
+        for (String s : Arrays.asList(config.getProperty("selenium.arguments").split("--"))){
+            if (!s.isEmpty()) {
+                options.addArguments("--" + s);
+                System.out.println("--" + s);
+            }
+        }
         WebDriver driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        long implicitlyWait = Long.parseLong(config.getProperty("selenium.waitSeconds"));
+        driver.manage().timeouts().implicitlyWait(implicitlyWait, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         return driver;
     }
