@@ -4,6 +4,7 @@ import com.hackaton.SeleniumWrapper;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -11,6 +12,7 @@ import org.openqa.selenium.support.ui.Select;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
 
@@ -62,11 +64,15 @@ public class StepDefs {
 
     @Given("^Type to '(.*)' text '(.*)'$")
     public void validate_title(String xpath, String text) {
-        driver.findElement(By.xpath(xpath)).sendKeys(text);
+        driver.findElement(By.xpath(xpath)).sendKeys(replacePlaceholders(text));
     }
 
     @Given("^Set select '(.*)' text '(.*)'$")
     public void set_select_value(String xpath, String text) {
         new Select(driver.findElement(By.xpath(xpath))).selectByVisibleText(text);
+    }
+
+    static String replacePlaceholders(String str){
+        return str.replace("{{randomLetters}}", RandomStringUtils.randomAlphabetic(4));
     }
 }
